@@ -43,14 +43,16 @@ export function Dashboard() {
           </div>
         </section>
 
-        {/* Welcome Card */}
+        {/* Date Card */}
         <section className="bg-white dark:bg-slate-900 rounded-3xl p-8 shadow-sm border border-slate-100 dark:border-slate-800 flex flex-col justify-center items-center text-center">
           <div className="w-16 h-16 bg-blue-50 dark:bg-blue-900/20 text-primary rounded-full flex items-center justify-center mb-6">
             <Moon className="w-8 h-8" />
           </div>
-          <h2 className="text-xl font-bold mb-2">Welcome to DeenHQ</h2>
-          <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">
-            Your privacy-first Islamic companion. All data is stored locally.
+          <h2 className="text-2xl font-bold mb-2 text-slate-900 dark:text-white">
+            {new Intl.DateTimeFormat('en-u-ca-islamic-umalqura', {day: 'numeric', month: 'long', year : 'numeric'}).format(new Date())}
+          </h2>
+          <p className="text-slate-500 dark:text-slate-400 text-sm font-medium uppercase tracking-wider">
+            {new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
           </p>
         </section>
 

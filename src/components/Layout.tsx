@@ -1,5 +1,5 @@
 import { Outlet, NavLink } from 'react-router-dom';
-import { Home, BookOpen, CheckCircle, Settings as SettingsIcon, Sun, Moon, Compass, Quote } from 'lucide-react';
+import { Home, BookOpen, CheckCircle, Settings as SettingsIcon, Sun, Moon, Compass, Quote, Sparkles } from 'lucide-react';
 import { useState, useEffect } from 'react';
 
 export function Layout() {
@@ -32,6 +32,7 @@ export function Layout() {
     { to: '/tracker', icon: CheckCircle, label: 'Tracker' },
     { to: '/qibla', icon: Compass, label: 'Qibla' },
     { to: '/duas', icon: Quote, label: 'Duas' },
+    { to: '/names', icon: Sparkles, label: 'Names' },
   ];
 
   return (
@@ -113,15 +114,15 @@ export function Layout() {
               key={item.to}
               to={item.to}
               className={({ isActive }) =>
-                `flex flex-col items-center gap-1 p-2 min-w-[64px] rounded-xl transition-colors ${
+                `flex flex-col items-center gap-1 p-2 min-w-[56px] rounded-xl transition-colors ${
                   isActive
                     ? 'text-primary'
                     : 'text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800'
                 }`
               }
             >
-              <item.icon className="w-6 h-6" />
-              <span className="text-[10px] font-medium">{item.label}</span>
+              <item.icon className="w-5 h-5" />
+              <span className="text-[9px] font-medium">{item.label}</span>
             </NavLink>
           ))}
         </div>
