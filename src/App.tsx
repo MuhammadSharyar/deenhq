@@ -11,6 +11,7 @@ import { Duas } from './components/Duas';
 import { Names } from './components/Names';
 import { Hadith } from './components/Hadith';
 import { Zakat } from './components/Zakat';
+import { More } from './components/More';
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
           <Route path="/names" element={<Names />} />
           <Route path="/hadith" element={<Hadith />} />
           <Route path="/zakat" element={<Zakat />} />
+          <Route path="/more" element={<More />} />
         </Route>
       </Routes>
     </BrowserRouter>

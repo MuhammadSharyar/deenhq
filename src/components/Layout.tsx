@@ -1,5 +1,5 @@
 import { Outlet, NavLink } from 'react-router-dom';
-import { Home, BookOpen, CheckCircle, Settings as SettingsIcon, Sun, Moon, Compass, Quote, Sparkles, ScrollText, Calculator } from 'lucide-react';
+import { Home, BookOpen, CheckCircle, Settings as SettingsIcon, Sun, Moon, Compass, Quote, Sparkles, ScrollText, Calculator, LayoutGrid } from 'lucide-react';
 import { useState, useEffect } from 'react';
 
 export function Layout() {
@@ -26,7 +26,7 @@ export function Layout() {
 
   const toggleTheme = () => setIsDark(!isDark);
 
-  const navItems = [
+  const desktopNavItems = [
     { to: '/', icon: Home, label: 'Home' },
     { to: '/quran', icon: BookOpen, label: 'Quran' },
     { to: '/tracker', icon: CheckCircle, label: 'Tracker' },
@@ -35,6 +35,13 @@ export function Layout() {
     { to: '/names', icon: Sparkles, label: 'Names' },
     { to: '/hadith', icon: ScrollText, label: 'Hadith' },
     { to: '/zakat', icon: Calculator, label: 'Zakat' },
+  ];
+
+  const mobileNavItems = [
+    { to: '/', icon: Home, label: 'Home' },
+    { to: '/quran', icon: BookOpen, label: 'Quran' },
+    { to: '/tracker', icon: CheckCircle, label: 'Tracker' },
+    { to: '/more', icon: LayoutGrid, label: 'More' },
   ];
 
   return (
@@ -55,7 +62,7 @@ export function Layout() {
           </button>
         </div>
         <nav className="flex-1 px-4 space-y-2">
-          {navItems.map((item) => (
+          {desktopNavItems.map((item) => (
             <NavLink
               key={item.to}
               to={item.to}
@@ -105,12 +112,12 @@ export function Layout() {
         <Outlet />
       </main>
 
-      {/* Mobile Bottom Navigation (Scrollable) */}
+      {/* Mobile Bottom Navigation */}
       <nav 
-        className="md:hidden fixed bottom-0 left-0 right-0 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 z-50 overflow-x-auto scrollbar-hide pb-safe"
+        className="md:hidden fixed bottom-0 left-0 right-0 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 z-50 pb-safe"
       >
-        <div className="flex items-center gap-1 px-4 py-2 w-max mx-auto md:mx-0">
-          {navItems.map((item) => (
+        <div className="flex items-center justify-around p-2">
+          {mobileNavItems.map((item) => (
             <NavLink
               key={item.to}
               to={item.to}
