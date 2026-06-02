@@ -5,8 +5,11 @@ import { useState, useEffect } from 'react';
 export function Layout() {
   const [isDark, setIsDark] = useState(() => {
     if (typeof window !== 'undefined') {
-      return document.documentElement.classList.contains('dark') ||
-        window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const savedTheme = localStorage.getItem('deenhq_theme');
+      if (savedTheme) {
+        return savedTheme === 'dark';
+      }
+      return window.matchMedia('(prefers-color-scheme: dark)').matches;
     }
     return false;
   });
@@ -14,8 +17,10 @@ export function Layout() {
   useEffect(() => {
     if (isDark) {
       document.documentElement.classList.add('dark');
+      localStorage.setItem('deenhq_theme', 'dark');
     } else {
       document.documentElement.classList.remove('dark');
+      localStorage.setItem('deenhq_theme', 'light');
     }
   }, [isDark]);
 
