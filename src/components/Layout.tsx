@@ -41,6 +41,7 @@ export function Layout() {
     { to: '/', icon: Home, label: 'Home' },
     { to: '/quran', icon: BookOpen, label: 'Quran' },
     { to: '/tracker', icon: CheckCircle, label: 'Tracker' },
+    { to: '/qibla', icon: Compass, label: 'Qibla' },
     { to: '/more', icon: LayoutGrid, label: 'More' },
   ];
 
