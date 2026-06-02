@@ -90,13 +90,26 @@ export function Qibla() {
         </div>
       </div>
 
-      <div className="text-center space-y-2 mt-8">
-        <p className="text-sm font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider">
-          Qibla Bearing
-        </p>
-        <p className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white tabular-nums">
-          {Math.round(qiblaBearing)}°
-        </p>
+      <div className="text-center space-y-6 mt-8">
+        <div className="flex items-center justify-center gap-8">
+          <div className="text-center">
+            <p className="text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">
+              Current Heading
+            </p>
+            <p className="text-3xl font-bold text-slate-900 dark:text-white tabular-nums">
+              {deviceHeading !== null ? Math.round(deviceHeading) : '--'}°
+            </p>
+          </div>
+          <div className="w-px h-12 bg-slate-200 dark:bg-slate-800"></div>
+          <div className="text-center">
+            <p className="text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">
+              Qibla Bearing
+            </p>
+            <p className="text-3xl font-bold text-emerald-500 tabular-nums">
+              {Math.round(qiblaBearing)}°
+            </p>
+          </div>
+        </div>
         <div className="h-8 mt-4">
           {pointingToQibla && (
             <p className="text-emerald-500 font-medium animate-pulse">
