@@ -107,6 +107,19 @@ export function usePrayerTimes() {
           const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
           const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
           const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+          // Notification Logic
+          if (diff <= 1000 && ('Notification' in window) && Notification.permission === 'granted' && localStorage.getItem('deenhq_notifications') === 'true') {
+            const prayerId = `${date.toDateString()}-${next}`;
+            if (localStorage.getItem('deenhq_last_notified') !== prayerId) {
+              new Notification('Prayer Time', {
+                body: `It is time for ${next.charAt(0).toUpperCase() + next.slice(1)} prayer.`,
+                icon: '/pwa-192x192.png'
+              });
+              localStorage.setItem('deenhq_last_notified', prayerId);
+            }
+          }
+
           setData({
             times: prayerTimes, // Keep today's times for the daily schedule display
             nextPrayer: next,

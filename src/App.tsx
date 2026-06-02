@@ -9,6 +9,8 @@ import { FAQ } from './components/FAQ';
 import { Qibla } from './components/Qibla';
 import { Duas } from './components/Duas';
 import { Names } from './components/Names';
+import { Hadith } from './components/Hadith';
+import { Zakat } from './components/Zakat';
 
 function App() {
   return (
@@ -24,6 +26,8 @@ function App() {
           <Route path="/qibla" element={<Qibla />} />
           <Route path="/duas" element={<Duas />} />
           <Route path="/names" element={<Names />} />
+          <Route path="/hadith" element={<Hadith />} />
+          <Route path="/zakat" element={<Zakat />} />
         </Route>
       </Routes>
     </BrowserRouter>

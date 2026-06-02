@@ -1,5 +1,5 @@
 import { Outlet, NavLink } from 'react-router-dom';
-import { Home, BookOpen, CheckCircle, Settings as SettingsIcon, Sun, Moon, Compass, Quote, Sparkles } from 'lucide-react';
+import { Home, BookOpen, CheckCircle, Settings as SettingsIcon, Sun, Moon, Compass, Quote, Sparkles, ScrollText, Calculator } from 'lucide-react';
 import { useState, useEffect } from 'react';
 
 export function Layout() {
@@ -33,6 +33,8 @@ export function Layout() {
     { to: '/qibla', icon: Compass, label: 'Qibla' },
     { to: '/duas', icon: Quote, label: 'Duas' },
     { to: '/names', icon: Sparkles, label: 'Names' },
+    { to: '/hadith', icon: ScrollText, label: 'Hadith' },
+    { to: '/zakat', icon: Calculator, label: 'Zakat' },
   ];
 
   return (
@@ -103,12 +105,11 @@ export function Layout() {
         <Outlet />
       </main>
 
-      {/* Mobile Bottom Navigation */}
+      {/* Mobile Bottom Navigation (Scrollable) */}
       <nav 
-        className="md:hidden fixed bottom-0 left-0 right-0 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 z-50"
-        style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}
+        className="md:hidden fixed bottom-0 left-0 right-0 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 z-50 overflow-x-auto scrollbar-hide pb-safe"
       >
-        <div className="flex items-center justify-around p-2">
+        <div className="flex items-center gap-1 px-4 py-2 w-max mx-auto md:mx-0">
           {navItems.map((item) => (
             <NavLink
               key={item.to}

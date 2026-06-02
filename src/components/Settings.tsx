@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useSettings } from '../hooks/useSettings';
 import { useSeoHead } from '../hooks/useSeoHead';
-import { Search, MapPin, Loader2, AlertTriangle, Info, HelpCircle } from 'lucide-react';
+import { Search, MapPin, Loader2, AlertTriangle, Info, HelpCircle, Bell } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 interface NominatimResult {
@@ -22,6 +22,36 @@ export function Settings() {
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState<NominatimResult[]>([]);
   const [isSearching, setIsSearching] = useState(false);
+
+  const [notificationsEnabled, setNotificationsEnabled] = useState(
+    ('Notification' in window) && Notification.permission === 'granted' && localStorage.getItem('deenhq_notifications') === 'true'
+  );
+
+  const toggleNotifications = async () => {
+    if (!('Notification' in window)) {
+      alert('This browser does not support desktop notifications.');
+      return;
+    }
+
+    if (!notificationsEnabled) {
+      if (Notification.permission === 'default' || Notification.permission === 'denied') {
+        const permission = await Notification.requestPermission();
+        if (permission === 'granted') {
+          setNotificationsEnabled(true);
+          localStorage.setItem('deenhq_notifications', 'true');
+          new Notification('DeenHQ', { body: 'Notifications enabled successfully!' });
+        } else {
+          alert('Notification permission denied by your browser.');
+        }
+      } else if (Notification.permission === 'granted') {
+        setNotificationsEnabled(true);
+        localStorage.setItem('deenhq_notifications', 'true');
+      }
+    } else {
+      setNotificationsEnabled(false);
+      localStorage.setItem('deenhq_notifications', 'false');
+    }
+  };
 
   const handleSearch = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -154,6 +184,28 @@ export function Settings() {
                 </div>
               </div>
             </div>
+          </div>
+        </section>
+
+        {/* Notifications */}
+        <section className="bg-white dark:bg-slate-900 rounded-3xl p-6 md:p-8 shadow-sm border border-slate-100 dark:border-slate-800">
+          <h2 className="text-xl font-bold text-slate-700 dark:text-slate-300 mb-6 flex items-center gap-2">
+            <Bell className="w-5 h-5 text-primary" />
+            Prayer Notifications
+          </h2>
+          
+          <div className="flex items-center justify-between p-4 bg-slate-50 dark:bg-slate-800 rounded-xl">
+            <div>
+              <h3 className="font-medium text-slate-900 dark:text-white">Enable Adhan Alerts</h3>
+              <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">Get notified when it's time to pray (browser must be open).</p>
+            </div>
+            
+            <button 
+              onClick={toggleNotifications}
+              className={`relative inline-flex h-7 w-12 items-center rounded-full transition-colors focus:outline-none ${notificationsEnabled ? 'bg-primary' : 'bg-slate-300 dark:bg-slate-600'}`}
+            >
+              <span className={`inline-block h-5 w-5 transform rounded-full bg-white transition-transform ${notificationsEnabled ? 'translate-x-6' : 'translate-x-1'}`} />
+            </button>
           </div>
         </section>
 

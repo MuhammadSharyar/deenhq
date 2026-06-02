@@ -63,9 +63,21 @@ export function Quran() {
           <h2 className="text-xl text-slate-700 dark:text-slate-300 font-medium">
             {surah.englishName}
           </h2>
-          <p className="text-slate-500 text-sm mt-2">
+          <p className="text-slate-500 text-sm mt-2 mb-8">
             {surah.englishNameTranslation} • {surah.revelationType} • {surah.ayahs.length} Ayahs
           </p>
+          
+          <div className="max-w-sm mx-auto bg-slate-50 dark:bg-slate-800/50 p-4 rounded-2xl flex flex-col items-center gap-3 border border-slate-100 dark:border-slate-800">
+            <span className="text-[10px] font-bold uppercase tracking-widest text-slate-400">Audio Recitation</span>
+            <audio 
+              controls 
+              className="w-full h-10" 
+              src={`https://server8.mp3quran.net/afs/${String(surah.number).padStart(3, '0')}.mp3`}
+              preload="metadata"
+            >
+              Your browser does not support the audio element.
+            </audio>
+          </div>
         </header>
 
         {/* Bismillah for all surahs except Tawbah (9) and Fatiha (where it's verse 1) */}
