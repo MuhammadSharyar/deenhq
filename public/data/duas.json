@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1,
+    "category": "Morning & Evening",
+    "title": "Morning Supplication",
+    "arabic": "اللّهُـمَّ بِكَ أَصْـبَحْنا وَبِكَ أَمْسَـينا ، وَبِكَ نَحْـيا وَبِكَ نَمُـوتُ وَإِلَـيْكَ النُّـشُور",
+    "transliteration": "Allahumma bika asbahna wa bika amsayna, wa bika nahya wa bika namootu wa ilaykan-nushoor.",
+    "translation": "O Allah, by Your leave we have reached the morning and by Your leave we have reached the evening, by Your leave we live and die and unto You is our resurrection."
+  },
+  {
+    "id": 2,
+    "category": "Traveling",
+    "title": "When mounting a vehicle",
+    "arabic": "سُبْحَانَ الَّذِي سَخَّرَ لَنَا هَذَا وَمَا كُنَّا لَهُ مُقْرِنِينَ وَإِنَّا إِلَى رَبِّنَا لَمُنْقَلِبُونَ",
+    "transliteration": "Subhanal-ladhee sakhkhara lana hadha wa ma kunna lahu muqrimeen. Wa inna ila Rabbina lamunqaliboon.",
+    "translation": "Glory be to Him Who has subjected this to us, and we could never have it (by our efforts). And verily, to Our Lord we indeed are to return!"
+  },
+  {
+    "id": 3,
+    "category": "Eating",
+    "title": "Before eating",
+    "arabic": "بِسْمِ اللَّهِ",
+    "transliteration": "Bismillaah.",
+    "translation": "In the name of Allah."
+  },
+  {
+    "id": 4,
+    "category": "Sleeping",
+    "title": "Before sleeping",
+    "arabic": "بِاسْمِكَ رَبِّي وَضَعْتُ جَنْبِي وَبِكَ أَرْفَعُهُ",
+    "transliteration": "Bismika Rabbee wada'tu janbee wa bika arfa'uhu.",
+    "translation": "In Your name my Lord, I lie down and in Your name I rise."
+  },
+  {
+    "id": 5,
+    "category": "Hardship",
+    "title": "When experiencing distress",
+    "arabic": "لَا إِلَهَ إِلَّا أَنْتَ سُبْحَانَكَ إِنِّي كُنْتُ مِنَ الظَّالِمِينَ",
+    "transliteration": "La ilaha illa Anta subhanaka inni kuntu minadh-dhalimeen.",
+    "translation": "There is none worthy of worship but You, glory is to You. Surely, I was among the wrongdoers."
+  }
+]

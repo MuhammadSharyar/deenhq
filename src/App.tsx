@@ -6,6 +6,8 @@ import { Quran } from './components/Quran';
 import { Settings } from './components/Settings';
 import { About } from './components/About';
 import { FAQ } from './components/FAQ';
+import { Qibla } from './components/Qibla';
+import { Duas } from './components/Duas';
 
 function App() {
   return (
@@ -18,6 +20,8 @@ function App() {
           <Route path="/settings" element={<Settings />} />
           <Route path="/about" element={<About />} />
           <Route path="/faq" element={<FAQ />} />
+          <Route path="/qibla" element={<Qibla />} />
+          <Route path="/duas" element={<Duas />} />
         </Route>
       </Routes>
     </BrowserRouter>
