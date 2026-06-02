@@ -38,7 +38,10 @@ export function Layout() {
       {/* Desktop Sidebar */}
       <aside className="hidden md:flex flex-col w-64 border-r border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 h-screen sticky top-0">
         <div className="p-6 flex items-center justify-between mb-4">
-          <h1 className="text-2xl font-bold tracking-tight text-primary">DeenHQ</h1>
+          <div className="flex items-center gap-3">
+            <img src="/favicon.svg" alt="DeenHQ Logo" className="w-8 h-8 drop-shadow-sm" />
+            <h1 className="text-2xl font-bold tracking-tight text-primary">DeenHQ</h1>
+          </div>
           <button 
             onClick={toggleTheme}
             className="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
@@ -75,7 +78,10 @@ export function Layout() {
       <main className="flex-1 overflow-y-auto pb-24 md:pb-0">
         {/* Mobile Top Bar */}
         <div className="md:hidden flex items-center justify-between p-4 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 sticky top-0 z-10">
-          <h1 className="text-xl font-bold tracking-tight text-primary">DeenHQ</h1>
+          <div className="flex items-center gap-2">
+            <img src="/favicon.svg" alt="DeenHQ Logo" className="w-7 h-7 drop-shadow-sm" />
+            <h1 className="text-xl font-bold tracking-tight text-primary">DeenHQ</h1>
+          </div>
           <button 
             onClick={toggleTheme}
             className="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
