@@ -1,5 +1,5 @@
 import { Outlet, NavLink, useLocation } from 'react-router-dom';
-import { Home, BookOpen, CheckCircle, Settings as SettingsIcon, Sun, Moon, Compass, Quote, Sparkles, ScrollText, Calculator, LayoutGrid } from 'lucide-react';
+import { Home, BookOpen, CheckCircle, Settings as SettingsIcon, Sun, Moon, Compass, Quote, Sparkles, ScrollText, Calculator, LayoutGrid, BookHeart, Calendar as CalendarIcon } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -32,8 +32,10 @@ export function Layout() {
     { to: '/', icon: Home, label: 'Home' },
     { to: '/quran', icon: BookOpen, label: 'Quran' },
     { to: '/tracker', icon: CheckCircle, label: 'Tracker' },
+    { to: '/calendar', icon: CalendarIcon, label: 'Fasting' },
+    { to: '/journal', icon: BookHeart, label: 'Journal' },
     { to: '/qibla', icon: Compass, label: 'Qibla' },
-    { to: '/duas', icon: Quote, label: 'Duas' },
+    { to: '/duas', icon: Quote, label: 'Hisnul Muslim' },
     { to: '/names', icon: Sparkles, label: 'Names' },
     { to: '/hadith', icon: ScrollText, label: 'Hadith' },
     { to: '/zakat', icon: Calculator, label: 'Zakat' },
