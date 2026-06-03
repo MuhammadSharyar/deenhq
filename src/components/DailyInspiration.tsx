@@ -30,7 +30,7 @@ export function DailyInspiration() {
   if (!hadith) return null;
 
   return (
-    <section className="col-span-1 md:col-span-2 lg:col-span-3 bg-gradient-to-br from-blue-50/50 to-indigo-50/50 dark:from-blue-900/10 dark:to-indigo-900/10 rounded-3xl p-8 shadow-sm border border-blue-100/50 dark:border-blue-800/30 relative overflow-hidden group hover:shadow-md transition-shadow">
+    <section className="col-span-1 md:col-span-2 lg:col-span-3 bg-gradient-to-br from-teal-50/50 to-emerald-50/50 dark:from-teal-900/10 dark:to-emerald-900/10 rounded-3xl p-8 shadow-sm border border-teal-100/50 dark:border-teal-800/30 relative overflow-hidden group hover:shadow-md transition-shadow">
       <div className="absolute -top-4 -right-4 p-8 opacity-[0.03] group-hover:opacity-[0.05] transition-opacity transform group-hover:scale-110 duration-500 pointer-events-none">
         <Quote className="w-32 h-32 text-primary" />
       </div>

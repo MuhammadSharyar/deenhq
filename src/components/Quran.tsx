@@ -192,11 +192,11 @@ function SurahReader({ surah, onBack, bookmark, saveBookmark }: any) {
                   </button>
                 </>
               ) : isDownloading ? (
-                <span className="flex items-center gap-1 text-[10px] font-bold uppercase text-blue-500">
+                <span className="flex items-center gap-1 text-[10px] font-bold uppercase text-teal-500">
                   <Loader2 className="w-3 h-3 animate-spin" /> Downloading...
                 </span>
               ) : (
-                <button onClick={downloadAudio} className="flex items-center gap-1 text-[10px] font-bold uppercase text-primary hover:text-blue-600 transition-colors">
+                <button onClick={downloadAudio} className="flex items-center gap-1 text-[10px] font-bold uppercase text-primary hover:text-teal-600 transition-colors">
                   <Download className="w-3 h-3" /> Save Offline
                 </button>
               )}
@@ -246,7 +246,7 @@ function SurahReader({ surah, onBack, bookmark, saveBookmark }: any) {
               <div 
                 key={ayah.numberInSurah}
                 ref={(el) => { ayahRefs.current[`${surah.number}-${ayah.numberInSurah}`] = el; }}
-                className={`flex flex-col gap-4 p-4 md:p-6 rounded-2xl transition-colors duration-300 ${isBookmarked ? 'bg-blue-50 dark:bg-blue-900/20 ring-1 ring-blue-500/20' : 'hover:bg-slate-50 dark:hover:bg-slate-800/50'}`}
+                className={`flex flex-col gap-4 p-4 md:p-6 rounded-2xl transition-colors duration-300 ${isBookmarked ? 'bg-teal-50 dark:bg-teal-900/20 ring-1 ring-teal-500/20' : 'hover:bg-slate-50 dark:hover:bg-slate-800/50'}`}
               >
                 <div className="flex items-start justify-between gap-6" dir="rtl">
                   <div 
@@ -277,7 +277,7 @@ function SurahReader({ surah, onBack, bookmark, saveBookmark }: any) {
             <span 
               key={ayah.numberInSurah}
               ref={(el) => { ayahRefs.current[`${surah.number}-${ayah.numberInSurah}`] = el; }}
-              className={`inline relative group select-none transition-colors duration-300 ${isBookmarked ? 'bg-blue-50 dark:bg-blue-900/30 shadow-[0_0_10px_rgba(0,112,242,0.1)] rounded-md px-1' : ''}`}
+              className={`inline relative group select-none transition-colors duration-300 ${isBookmarked ? 'bg-teal-50 dark:bg-teal-900/30 shadow-[0_0_10px_rgba(0,112,242,0.1)] rounded-md px-1' : ''}`}
             >
               <span 
                 className="cursor-pointer hover:text-primary transition-colors inline-block" 

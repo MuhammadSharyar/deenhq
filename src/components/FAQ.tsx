@@ -51,7 +51,7 @@ export function FAQ() {
   return (
     <div className="p-6 md:p-8 lg:p-12 max-w-3xl mx-auto space-y-8 min-h-screen">
       <header className="mb-12 text-center">
-        <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-blue-50 dark:bg-blue-900/20 text-primary mb-6">
+        <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-teal-50 dark:bg-teal-900/20 text-primary mb-6">
           <HelpCircle className="w-8 h-8" />
         </div>
         <h1 className="text-3xl md:text-4xl font-bold tracking-tight text-slate-900 dark:text-white mb-4">

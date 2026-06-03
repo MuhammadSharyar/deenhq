@@ -97,7 +97,7 @@ export function Settings() {
           
           <button 
             onClick={triggerAutoLocation}
-            className="flex items-center justify-center gap-2 w-full py-3 bg-blue-50 text-primary dark:bg-blue-900/20 dark:text-blue-400 rounded-xl font-medium hover:bg-blue-100 dark:hover:bg-blue-900/40 transition-colors focus:outline-none focus:ring-2 focus:ring-primary"
+            className="flex items-center justify-center gap-2 w-full py-3 bg-teal-50 text-primary dark:bg-teal-900/20 dark:text-teal-400 rounded-xl font-medium hover:bg-teal-100 dark:hover:bg-teal-900/40 transition-colors focus:outline-none focus:ring-2 focus:ring-primary"
           >
             <MapPin className="w-5 h-5" />
             Use Automatic Location
@@ -120,7 +120,7 @@ export function Settings() {
             <button 
               type="submit"
               disabled={isSearching || !searchQuery.trim()}
-              className="absolute right-2 top-2 bottom-2 aspect-square flex items-center justify-center bg-primary text-white rounded-lg hover:bg-blue-600 disabled:opacity-50 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary dark:focus:ring-offset-slate-900"
+              className="absolute right-2 top-2 bottom-2 aspect-square flex items-center justify-center bg-primary text-white rounded-lg hover:bg-teal-600 disabled:opacity-50 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary dark:focus:ring-offset-slate-900"
             >
               {isSearching ? <Loader2 className="w-4 h-4 animate-spin" /> : <Search className="w-4 h-4" />}
             </button>

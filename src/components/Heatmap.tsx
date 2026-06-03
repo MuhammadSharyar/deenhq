@@ -19,10 +19,10 @@ export function Heatmap({ history }: HeatmapProps) {
 
   const getColor = (rate: number | undefined) => {
     if (rate === undefined || rate === 0) return 'bg-slate-100 dark:bg-slate-800';
-    if (rate < 0.34) return 'bg-blue-200 dark:bg-blue-900/40';
-    if (rate < 0.67) return 'bg-blue-400 dark:bg-blue-700/60';
-    if (rate < 1) return 'bg-blue-500 dark:bg-blue-600';
-    return 'bg-blue-600 dark:bg-blue-500';
+    if (rate < 0.34) return 'bg-teal-200 dark:bg-teal-900/40';
+    if (rate < 0.67) return 'bg-teal-400 dark:bg-teal-700/60';
+    if (rate < 1) return 'bg-teal-500 dark:bg-teal-600';
+    return 'bg-teal-600 dark:bg-teal-500';
   };
 
   return (
@@ -41,10 +41,10 @@ export function Heatmap({ history }: HeatmapProps) {
         <span>Less</span>
         <div className="flex gap-1.5">
           <div className="w-4 h-4 rounded-[4px] bg-slate-100 dark:bg-slate-800 shadow-sm" />
-          <div className="w-4 h-4 rounded-[4px] bg-blue-200 dark:bg-blue-900/40 shadow-sm" />
-          <div className="w-4 h-4 rounded-[4px] bg-blue-400 dark:bg-blue-700/60 shadow-sm" />
-          <div className="w-4 h-4 rounded-[4px] bg-blue-500 dark:bg-blue-600 shadow-sm" />
-          <div className="w-4 h-4 rounded-[4px] bg-blue-600 dark:bg-blue-500 shadow-sm" />
+          <div className="w-4 h-4 rounded-[4px] bg-teal-200 dark:bg-teal-900/40 shadow-sm" />
+          <div className="w-4 h-4 rounded-[4px] bg-teal-400 dark:bg-teal-700/60 shadow-sm" />
+          <div className="w-4 h-4 rounded-[4px] bg-teal-500 dark:bg-teal-600 shadow-sm" />
+          <div className="w-4 h-4 rounded-[4px] bg-teal-600 dark:bg-teal-500 shadow-sm" />
         </div>
         <span>More</span>
       </div>

@@ -47,7 +47,7 @@ export function Qibla() {
       {isSupported && permissionGranted === null && (
         <button 
           onClick={requestPermission}
-          className="bg-primary hover:bg-blue-600 text-white font-medium py-3 px-8 rounded-full transition-colors shadow-lg shadow-blue-500/30 flex items-center gap-2 mt-8"
+          className="bg-primary hover:bg-teal-600 text-white font-medium py-3 px-8 rounded-full transition-colors shadow-lg shadow-teal-500/30 flex items-center gap-2 mt-8"
         >
           <Compass className="w-5 h-5" />
           Enable Compass

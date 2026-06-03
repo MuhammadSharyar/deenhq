@@ -59,7 +59,7 @@ export function Dashboard() {
             <div className="text-5xl font-bold capitalize text-slate-900 dark:text-white mb-4">
               {nextPrayer !== 'none' && nextPrayer ? nextPrayer : 'Loading...'}
             </div>
-            <div className="flex items-center gap-2 text-primary font-mono text-2xl bg-blue-50 dark:bg-blue-900/20 w-fit px-5 py-2.5 rounded-2xl">
+            <div className="flex items-center gap-2 text-primary font-mono text-2xl bg-teal-50 dark:bg-teal-900/20 w-fit px-5 py-2.5 rounded-2xl">
               <Clock className="w-6 h-6" />
               {countdown || '00:00:00'}
             </div>
@@ -68,7 +68,7 @@ export function Dashboard() {
 
         {/* Date Card */}
         <motion.section variants={itemVariants} className="bg-white dark:bg-slate-900 rounded-3xl p-8 shadow-sm hover:shadow-md transition-shadow border border-slate-100 dark:border-slate-800 flex flex-col justify-center items-center text-center">
-          <div className="w-16 h-16 bg-blue-50 dark:bg-blue-900/20 text-primary rounded-full flex items-center justify-center mb-6">
+          <div className="w-16 h-16 bg-teal-50 dark:bg-teal-900/20 text-primary rounded-full flex items-center justify-center mb-6">
             <Moon className="w-8 h-8" />
           </div>
           <h2 className="text-2xl font-bold mb-2 text-slate-900 dark:text-white">
@@ -80,7 +80,7 @@ export function Dashboard() {
 
           {upcomingEvent && (
             <div className="mt-auto pt-6 w-full">
-              <div className="flex items-center justify-between bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-2xl p-4 border border-blue-100/50 dark:border-blue-800/30">
+              <div className="flex items-center justify-between bg-gradient-to-r from-teal-50 to-emerald-50 dark:from-teal-900/20 dark:to-emerald-900/20 rounded-2xl p-4 border border-teal-100/50 dark:border-teal-800/30">
                 <div className="text-left flex items-start gap-3">
                   <div className="bg-white dark:bg-slate-800 p-2 rounded-xl shadow-sm">
                     <CalendarHeart className="w-5 h-5 text-primary" />
@@ -90,7 +90,7 @@ export function Dashboard() {
                     <div className="text-xs text-slate-500 dark:text-slate-400 font-medium">{upcomingEvent.event.description}</div>
                   </div>
                 </div>
-                <div className="text-right pl-4 border-l border-blue-100 dark:border-blue-800/50">
+                <div className="text-right pl-4 border-l border-teal-100 dark:border-teal-800/50">
                   <div className="text-xl font-bold text-primary leading-none mb-1">
                     {upcomingEvent.daysUntil === 0 ? 'Today' : upcomingEvent.daysUntil === 1 ? 'Tmrw' : upcomingEvent.daysUntil}
                   </div>
@@ -122,7 +122,7 @@ export function Dashboard() {
                       : 'bg-slate-50 dark:bg-slate-800/50 hover:bg-slate-100 dark:hover:bg-slate-800'
                   }`}
                 >
-                  <span className={`text-sm mb-2 ${isActive ? 'text-blue-100' : 'text-slate-500 dark:text-slate-400'}`}>
+                  <span className={`text-sm mb-2 ${isActive ? 'text-teal-100' : 'text-slate-500 dark:text-slate-400'}`}>
                     {prayer.name}
                   </span>
                   <span className="font-mono text-lg font-semibold">

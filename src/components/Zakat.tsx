@@ -98,34 +98,34 @@ export function Zakat() {
             <h2 className="text-xl font-bold mb-6">Calculation</h2>
             
             <div className="space-y-4 mb-8">
-              <div className="flex justify-between text-blue-100 text-sm">
+              <div className="flex justify-between text-teal-100 text-sm">
                 <span>Total Assets</span>
                 <span>{totalAssets.toLocaleString()}</span>
               </div>
-              <div className="flex justify-between text-blue-100 text-sm">
+              <div className="flex justify-between text-teal-100 text-sm">
                 <span>Total Liabilities</span>
                 <span>- {totalLiabilities.toLocaleString()}</span>
               </div>
-              <div className="flex justify-between font-bold text-lg pt-4 border-t border-blue-400/30">
+              <div className="flex justify-between font-bold text-lg pt-4 border-t border-teal-400/30">
                 <span>Net Zakatable</span>
                 <span>{netAssets.toLocaleString()}</span>
               </div>
             </div>
 
             <div className="space-y-2 mb-8">
-              <label className="block text-sm font-medium text-blue-100">Current Nisab Value</label>
+              <label className="block text-sm font-medium text-teal-100">Current Nisab Value</label>
               <div className="relative text-slate-900">
                 <DollarSign className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
                 <input type="number" min="0" placeholder="e.g. 5000" value={nisab} onChange={e => setNisab(e.target.valueAsNumber || '')} className="w-full pl-9 pr-3 py-2 rounded-lg bg-white border-none focus:ring-2 focus:ring-white text-slate-900" />
               </div>
-              <p className="text-xs text-blue-200 mt-1 flex items-start gap-1">
+              <p className="text-xs text-teal-200 mt-1 flex items-start gap-1">
                 <Info className="w-4 h-4 mt-0.5 flex-shrink-0" />
                 Check current local gold/silver prices to determine the Nisab threshold.
               </p>
             </div>
 
-            <div className="pt-6 border-t border-blue-400/30">
-              <span className="block text-sm font-medium text-blue-100 mb-1">Total Zakat Owed</span>
+            <div className="pt-6 border-t border-teal-400/30">
+              <span className="block text-sm font-medium text-teal-100 mb-1">Total Zakat Owed</span>
               {nisabThreshold === 0 ? (
                 <div className="text-xl font-bold">Enter Nisab</div>
               ) : isEligible ? (

@@ -34,7 +34,7 @@ export function More() {
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {menuItems.map(item => (
             <Link key={item.to} to={item.to} className="flex items-center gap-4 p-4 bg-white dark:bg-slate-900 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-800 hover:border-primary hover:shadow-md transition-all group">
-              <div className="w-12 h-12 flex items-center justify-center bg-blue-50 dark:bg-blue-900/20 text-primary rounded-xl group-hover:bg-primary group-hover:text-white transition-colors">
+              <div className="w-12 h-12 flex items-center justify-center bg-teal-50 dark:bg-teal-900/20 text-primary rounded-xl group-hover:bg-primary group-hover:text-white transition-colors">
                 <item.icon className="w-6 h-6" />
               </div>
               <div>

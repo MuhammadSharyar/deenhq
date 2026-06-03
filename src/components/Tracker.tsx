@@ -208,7 +208,7 @@ export function Tracker() {
                   key={habit.id} 
                   className={`flex items-center justify-between p-4 rounded-2xl transition-colors cursor-pointer border select-none ${
                   habit.completed 
-                    ? 'bg-blue-50/50 border-blue-100 dark:bg-blue-900/10 dark:border-blue-900/30 text-primary' 
+                    ? 'bg-teal-50/50 border-teal-100 dark:bg-teal-900/10 dark:border-teal-900/30 text-primary' 
                     : 'bg-slate-50 border-transparent dark:bg-slate-800/50 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300'
                 }`}
                 onClick={() => toggleHabit(habit.id)}
@@ -254,7 +254,7 @@ export function Tracker() {
             <button 
               type="submit"
               disabled={!newHabit.trim()}
-              className="absolute right-2 top-2 bottom-2 aspect-square bg-primary text-white rounded-xl flex items-center justify-center hover:bg-blue-600 transition-colors disabled:opacity-50 disabled:hover:bg-primary"
+              className="absolute right-2 top-2 bottom-2 aspect-square bg-primary text-white rounded-xl flex items-center justify-center hover:bg-teal-600 transition-colors disabled:opacity-50 disabled:hover:bg-primary"
             >
               <Plus className="w-5 h-5" />
             </button>
