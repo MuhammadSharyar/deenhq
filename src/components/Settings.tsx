@@ -19,7 +19,7 @@ export function Settings() {
   });
 
   const { madhab, updateMadhab, method, updateMethod, setLocation, triggerAutoLocation, clearAllData } = useSettings();
-  
+
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState<NominatimResult[]>([]);
   const [isSearching, setIsSearching] = useState(false);
@@ -94,8 +94,8 @@ export function Settings() {
         {/* Location Settings */}
         <section className="bg-white dark:bg-slate-900 rounded-3xl p-6 md:p-8 shadow-sm border border-slate-100 dark:border-slate-800">
           <h2 className="text-xl font-bold text-slate-700 dark:text-slate-300 mb-6">Location Settings</h2>
-          
-          <button 
+
+          <button
             onClick={triggerAutoLocation}
             className="flex items-center justify-center gap-2 w-full py-3 bg-teal-50 text-primary dark:bg-teal-900/20 dark:text-teal-400 rounded-xl font-medium hover:bg-teal-100 dark:hover:bg-teal-900/40 transition-colors focus:outline-none focus:ring-2 focus:ring-primary"
           >
@@ -103,7 +103,7 @@ export function Settings() {
             Use Automatic Location
           </button>
 
-          <div className="relative flex items-center gap-4 my-6">
+          {/* <div className="relative flex items-center gap-4 my-6">
             <div className="flex-1 border-t border-slate-200 dark:border-slate-800"></div>
             <span className="text-sm text-slate-400 font-medium uppercase tracking-wider">or search manually</span>
             <div className="flex-1 border-t border-slate-200 dark:border-slate-800"></div>
@@ -139,20 +139,20 @@ export function Settings() {
                 </li>
               ))}
             </ul>
-          )}
+          )} */}
         </section>
 
         {/* Calculation Settings */}
         <section className="bg-white dark:bg-slate-900 rounded-3xl p-6 md:p-8 shadow-sm border border-slate-100 dark:border-slate-800">
           <h2 className="text-xl font-bold text-slate-700 dark:text-slate-300 mb-6">Calculation Methods</h2>
-          
+
           <div className="space-y-6">
             <div>
               <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
                 Prayer Time Convention
               </label>
               <div className="relative">
-                <select 
+                <select
                   value={method}
                   onChange={(e) => updateMethod(e.target.value)}
                   className="w-full p-4 bg-slate-50 dark:bg-slate-800 border-none rounded-xl focus:ring-2 focus:ring-primary focus:outline-none text-slate-900 dark:text-white appearance-none cursor-pointer"
@@ -174,7 +174,7 @@ export function Settings() {
                 Asr Calculation (Madhab)
               </label>
               <div className="relative">
-                <select 
+                <select
                   value={madhab}
                   onChange={(e) => updateMadhab(e.target.value)}
                   className="w-full p-4 bg-slate-50 dark:bg-slate-800 border-none rounded-xl focus:ring-2 focus:ring-primary focus:outline-none text-slate-900 dark:text-white appearance-none cursor-pointer"
@@ -196,14 +196,14 @@ export function Settings() {
             <Bell className="w-5 h-5 text-primary" />
             Prayer Notifications
           </h2>
-          
+
           <div className="flex items-center justify-between p-4 bg-slate-50 dark:bg-slate-800 rounded-xl">
             <div>
               <h3 className="font-medium text-slate-900 dark:text-white">Enable Adhan Alerts</h3>
               <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">Get notified when it's time to pray (browser must be open).</p>
             </div>
-            
-            <button 
+
+            <button
               onClick={toggleNotifications}
               className={`relative inline-flex h-7 w-12 items-center rounded-full transition-colors focus:outline-none ${notificationsEnabled ? 'bg-primary' : 'bg-slate-300 dark:bg-slate-600'}`}
             >
@@ -239,8 +239,8 @@ export function Settings() {
           <p className="text-sm text-slate-500 dark:text-slate-400 mb-6">
             This will permanently delete all your local habits, tasbih counts, Quran bookmarks, and location settings.
           </p>
-          
-          <button 
+
+          <button
             onClick={clearAllData}
             className="flex items-center justify-center gap-2 w-full py-3 bg-red-50 text-red-600 dark:bg-red-900/20 dark:text-red-400 rounded-xl font-medium hover:bg-red-100 dark:hover:bg-red-900/40 transition-colors focus:outline-none focus:ring-2 focus:ring-red-500"
           >
