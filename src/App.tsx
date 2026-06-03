@@ -14,6 +14,7 @@ import { Hadith } from './components/Hadith';
 import { Zakat } from './components/Zakat';
 import { More } from './components/More';
 import { Journal } from './components/Journal';
+import { Calendar } from './components/Calendar';
 import { schedulePrayerNotifications } from './utils/scheduleNotifications';
 
 function App() {
@@ -38,6 +39,7 @@ function App() {
           <Route path="zakat" element={<Zakat />} />
           <Route path="more" element={<More />} />
           <Route path="journal" element={<Journal />} />
+          <Route path="calendar" element={<Calendar />} />
         </Route>
       </Routes>
     </BrowserRouter>
