@@ -30,10 +30,15 @@ export function Settings() {
   const [isSearching, setIsSearching] = useState(false);
 
   const [notificationsEnabled, setNotificationsEnabled] = useState(
-    Notification.permission === 'granted'
+    typeof window !== 'undefined' && 'Notification' in window && Notification.permission === 'granted'
   );
 
   const toggleNotifications = async () => {
+    if (!('Notification' in window)) {
+      alert('Your browser does not support notifications.');
+      return;
+    }
+
     if (notificationsEnabled) {
       // Browsers don't let you programmatically revoke permissions
       // We can only show an alert to the user
