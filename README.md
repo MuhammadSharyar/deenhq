@@ -16,6 +16,7 @@ DeenHQ is a 100% client-side, privacy-first Islamic utility Progressive Web App 
 - **Icons:** Lucide React
 - **Hosting:** 100% Static (Vercel / Cloudflare Pages)
 
+
 ## 🚀 Running Locally
 1. Clone the repository
 2. Install dependencies: `npm install`
