@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 export interface Ayah {
   numberInSurah: number;
   text: string;
+  translation?: string;
 }
 
 export interface Surah {
@@ -34,13 +35,34 @@ export function useQuran() {
     }
 
     // Load static JSON data
-    fetch('/data/quran.json')
-      .then(res => {
+    Promise.all([
+      fetch('/data/quran.json').then(res => {
         if (!res.ok) throw new Error('Failed to load Quran data');
         return res.json();
+      }),
+      fetch('/data/quran_en.json').then(res => {
+        if (!res.ok) throw new Error('Failed to load English translation');
+        return res.json();
+      }).catch(err => {
+        console.error('Translation not available:', err);
+        return null;
       })
-      .then(data => {
-        setSurahs(data);
+    ])
+      .then(([quranData, translationData]) => {
+        if (translationData) {
+          quranData.forEach((surah: Surah, sIndex: number) => {
+            const enSurah = translationData[sIndex];
+            if (enSurah && enSurah.number === surah.number) {
+              surah.ayahs.forEach((ayah: Ayah, aIndex: number) => {
+                const enAyah = enSurah.ayahs[aIndex];
+                if (enAyah && enAyah.numberInSurah === ayah.numberInSurah) {
+                  ayah.translation = enAyah.text;
+                }
+              });
+            }
+          });
+        }
+        setSurahs(quranData);
         setLoading(false);
       })
       .catch(err => {

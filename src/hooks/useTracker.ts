@@ -16,11 +16,15 @@ const DEFAULT_HABITS: Habit[] = [
 export function useTracker() {
   const [tasbih, setTasbih] = useState(0);
   const [habits, setHabits] = useState<Habit[]>(DEFAULT_HABITS);
+  const [history, setHistory] = useState<Record<string, number>>({});
 
   // Load state on mount
   useEffect(() => {
     const savedTasbih = localStorage.getItem('deenhq_tasbih');
     if (savedTasbih) setTasbih(parseInt(savedTasbih, 10));
+
+    const savedHistory = localStorage.getItem('deenhq_history');
+    if (savedHistory) setHistory(JSON.parse(savedHistory));
 
     const savedHabits = localStorage.getItem('deenhq_habits');
     if (savedHabits) {
@@ -47,10 +51,23 @@ export function useTracker() {
     localStorage.setItem('deenhq_tasbih', tasbih.toString());
   }, [tasbih]);
 
-  // Sync Habits
+  // Sync Habits and update today's history
   useEffect(() => {
     if (habits !== DEFAULT_HABITS) {
       localStorage.setItem('deenhq_habits', JSON.stringify(habits));
+      
+      if (habits.length > 0) {
+        const completedCount = habits.filter(h => h.completed).length;
+        const rate = completedCount / habits.length;
+        const today = new Date().toISOString().split('T')[0]; // YYYY-MM-DD format
+        
+        setHistory(prev => {
+          if (prev[today] === rate) return prev;
+          const next = { ...prev, [today]: rate };
+          localStorage.setItem('deenhq_history', JSON.stringify(next));
+          return next;
+        });
+      }
     }
   }, [habits]);
 
@@ -80,6 +97,7 @@ export function useTracker() {
     incrementTasbih,
     resetTasbih,
     habits,
+    history,
     toggleHabit,
     addHabit,
     deleteHabit,

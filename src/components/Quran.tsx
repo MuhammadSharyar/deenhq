@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { useQuran } from '../hooks/useQuran';
 import { useSeoHead } from '../hooks/useSeoHead';
-import { BookmarkCheck, ChevronLeft, Search } from 'lucide-react';
+import { BookmarkCheck, ChevronLeft, Search, Languages } from 'lucide-react';
 
 export function Quran() {
   useSeoHead({
@@ -12,6 +12,7 @@ export function Quran() {
   const { surahs, loading, error, bookmark, saveBookmark } = useQuran();
   const [selectedSurah, setSelectedSurah] = useState<number | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
+  const [showTranslation, setShowTranslation] = useState(false);
 
   // Scroll to bookmark logic
   const ayahRefs = useRef<{ [key: string]: HTMLSpanElement | null }>({});
@@ -48,13 +49,27 @@ export function Quran() {
 
     return (
       <div className="p-6 md:p-8 lg:p-12 max-w-5xl mx-auto min-h-screen">
-        <button 
-          onClick={() => setSelectedSurah(null)}
-          className="flex items-center gap-2 text-slate-500 hover:text-primary transition-colors mb-8 focus:outline-none"
-        >
-          <ChevronLeft className="w-5 h-5" />
-          Back to Surahs
-        </button>
+        <div className="flex items-center justify-between mb-8">
+          <button 
+            onClick={() => setSelectedSurah(null)}
+            className="flex items-center gap-2 text-slate-500 hover:text-primary transition-colors focus:outline-none"
+          >
+            <ChevronLeft className="w-5 h-5" />
+            Back to Surahs
+          </button>
+          
+          <button
+            onClick={() => setShowTranslation(!showTranslation)}
+            className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+              showTranslation 
+                ? 'bg-primary text-white' 
+                : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700'
+            }`}
+          >
+            <Languages className="w-4 h-4" />
+            {showTranslation ? 'Hide Translation' : 'Show Translation'}
+          </button>
+        </div>
 
         <header className="text-center mb-12 border-b border-slate-200 dark:border-slate-800 pb-8">
           <h1 className="text-4xl md:text-5xl font-bold font-[Amiri_Quran] text-primary mb-4" style={{ fontFamily: '"Amiri Quran", serif' }} dir="rtl">
@@ -88,9 +103,13 @@ export function Quran() {
         )}
 
         <article 
-          className="text-right leading-[3.5] md:leading-[4] text-2xl md:text-[2rem] text-slate-900 dark:text-slate-100" 
-          style={{ fontFamily: '"Amiri Quran", serif' }}
-          dir="rtl"
+          className={
+            showTranslation 
+              ? "flex flex-col gap-8 md:gap-12 pb-24"
+              : "text-right leading-[3.5] md:leading-[4] text-2xl md:text-[2rem] text-slate-900 dark:text-slate-100 pb-24"
+          }
+          style={!showTranslation ? { fontFamily: '"Amiri Quran", serif' } : {}}
+          dir={!showTranslation ? "rtl" : "ltr"}
         >
           {surah.ayahs.map(ayah => {
             const isBookmarked = bookmark?.surah === surah.number && bookmark?.ayah === ayah.numberInSurah;
@@ -99,6 +118,38 @@ export function Quran() {
             // Remove Bismillah from beginning of text if the API bundled it, except for Al Fatiha
             if (surah.number !== 1 && ayah.numberInSurah === 1 && text.startsWith('بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ ')) {
               text = text.replace('بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ ', '');
+            }
+
+            if (showTranslation) {
+              return (
+                <div 
+                  key={ayah.numberInSurah}
+                  ref={(el) => { ayahRefs.current[`${surah.number}-${ayah.numberInSurah}`] = el; }}
+                  className={`flex flex-col gap-4 p-4 md:p-6 rounded-2xl transition-colors duration-300 ${isBookmarked ? 'bg-blue-50 dark:bg-blue-900/20 ring-1 ring-blue-500/20' : 'hover:bg-slate-50 dark:hover:bg-slate-800/50'}`}
+                >
+                  <div className="flex items-start justify-between gap-6" dir="rtl">
+                    <div 
+                      className="text-right leading-[2.5] md:leading-[3] text-2xl md:text-[2rem] text-slate-900 dark:text-slate-100 flex-1 cursor-pointer hover:text-primary transition-colors" 
+                      style={{ fontFamily: '"Amiri Quran", serif' }}
+                      onClick={() => saveBookmark(surah.number, ayah.numberInSurah)}
+                    >
+                      {text}
+                    </div>
+                    <span 
+                      className="flex-shrink-0 inline-flex items-center justify-center w-10 h-10 text-sm bg-slate-100 dark:bg-slate-800 text-slate-500 rounded-full cursor-pointer hover:bg-primary hover:text-white transition-colors" 
+                      onClick={() => saveBookmark(surah.number, ayah.numberInSurah)}
+                    >
+                      {ayah.numberInSurah}
+                    </span>
+                  </div>
+                  
+                  {ayah.translation && (
+                    <div className="text-left text-slate-600 dark:text-slate-400 text-lg md:text-xl leading-relaxed border-t border-slate-100 dark:border-slate-800 pt-4" dir="ltr">
+                      {ayah.translation}
+                    </div>
+                  )}
+                </div>
+              );
             }
 
             return (

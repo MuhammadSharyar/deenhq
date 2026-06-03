@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { useTracker } from '../hooks/useTracker';
 import { useSeoHead } from '../hooks/useSeoHead';
 import { Plus, Trash2, RotateCcw, CheckCircle2, Circle } from 'lucide-react';
+import { Heatmap } from './Heatmap';
+import { motion, AnimatePresence } from 'framer-motion';
 
 export function Tracker() {
   useSeoHead({
@@ -9,7 +11,7 @@ export function Tracker() {
     description: 'Track your daily Islamic habits and digital tasbih offline.',
   });
 
-  const { tasbih, incrementTasbih, resetTasbih, habits, toggleHabit, addHabit, deleteHabit } = useTracker();
+  const { tasbih, incrementTasbih, resetTasbih, habits, history, toggleHabit, addHabit, deleteHabit } = useTracker();
   const [newHabit, setNewHabit] = useState('');
 
   const handleAddHabit = (e: React.FormEvent) => {
@@ -66,10 +68,17 @@ export function Tracker() {
           </div>
 
           <ul className="flex-1 space-y-3 overflow-y-auto mb-6 pr-2">
-            {habits.map(habit => (
-              <li 
-                key={habit.id} 
-                className={`flex items-center justify-between p-4 rounded-2xl transition-colors cursor-pointer border select-none ${
+            <AnimatePresence mode="popLayout">
+              {habits.map(habit => (
+                <motion.li 
+                  layout
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.8, transition: { duration: 0.2 } }}
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  key={habit.id} 
+                  className={`flex items-center justify-between p-4 rounded-2xl transition-colors cursor-pointer border select-none ${
                   habit.completed 
                     ? 'bg-blue-50/50 border-blue-100 dark:bg-blue-900/10 dark:border-blue-900/30 text-primary' 
                     : 'bg-slate-50 border-transparent dark:bg-slate-800/50 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300'
@@ -96,8 +105,9 @@ export function Tracker() {
                 >
                   <Trash2 className="w-4 h-4" />
                 </button>
-              </li>
-            ))}
+                </motion.li>
+              ))}
+            </AnimatePresence>
             {habits.length === 0 && (
               <li className="text-center text-slate-500 dark:text-slate-400 py-8">
                 No habits added. Start building your routine!
@@ -123,6 +133,10 @@ export function Tracker() {
           </form>
         </section>
       </div>
+
+      <section className="bg-white dark:bg-slate-900 rounded-3xl p-8 shadow-sm border border-slate-100 dark:border-slate-800">
+        <Heatmap history={history} />
+      </section>
     </div>
   );
 }

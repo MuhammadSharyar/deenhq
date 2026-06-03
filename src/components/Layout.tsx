@@ -1,8 +1,10 @@
-import { Outlet, NavLink } from 'react-router-dom';
+import { Outlet, NavLink, useLocation } from 'react-router-dom';
 import { Home, BookOpen, CheckCircle, Settings as SettingsIcon, Sun, Moon, Compass, Quote, Sparkles, ScrollText, Calculator, LayoutGrid } from 'lucide-react';
 import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 export function Layout() {
+  const location = useLocation();
   const [isDark, setIsDark] = useState(() => {
     if (typeof window !== 'undefined') {
       const savedTheme = localStorage.getItem('deenhq_theme');
@@ -48,8 +50,8 @@ export function Layout() {
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-50 transition-colors duration-200 flex flex-col md:flex-row">
       {/* Desktop Sidebar */}
-      <aside className="hidden md:flex flex-col w-64 border-r border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 h-screen sticky top-0">
-        <div className="p-6 flex items-center justify-between mb-4">
+      <aside className="hidden md:flex flex-col w-64 border-r border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 h-screen sticky top-0 islamic-pattern">
+        <div className="p-6 flex items-center justify-between mb-4 bg-white/50 dark:bg-slate-900/50 backdrop-blur-sm rounded-b-xl mx-2 mt-2 shadow-sm">
           <div className="flex items-center gap-3">
             <img src="/favicon.svg" alt="DeenHQ Logo" className="w-8 h-8 drop-shadow-sm" />
             <h1 className="text-2xl font-bold tracking-tight text-primary">DeenHQ</h1>
@@ -90,9 +92,9 @@ export function Layout() {
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 overflow-y-auto pb-24 md:pb-0">
+      <main className="flex-1 overflow-y-auto pb-24 md:pb-0 relative">
         {/* Mobile Top Bar */}
-        <div className="md:hidden flex items-center justify-between p-4 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 sticky top-0 z-10">
+        <div className="md:hidden flex items-center justify-between p-4 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 sticky top-0 z-20">
           <div className="flex items-center gap-2">
             <img src="/favicon.svg" alt="DeenHQ Logo" className="w-7 h-7 drop-shadow-sm" />
             <h1 className="text-xl font-bold tracking-tight text-primary">DeenHQ</h1>
@@ -110,12 +112,23 @@ export function Layout() {
             </button>
           </div>
         </div>
-        <Outlet />
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={location.pathname}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.2 }}
+            className="h-full"
+          >
+            <Outlet />
+          </motion.div>
+        </AnimatePresence>
       </main>
 
       {/* Mobile Bottom Navigation */}
       <nav 
-        className="md:hidden fixed bottom-0 left-0 right-0 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 z-50 pb-safe"
+        className="md:hidden fixed bottom-0 left-0 right-0 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-t border-slate-200 dark:border-slate-800 z-50 pb-safe shadow-[0_-4px_20px_rgba(0,0,0,0.05)]"
       >
         <div className="flex items-center justify-around p-2">
           {mobileNavItems.map((item) => (
