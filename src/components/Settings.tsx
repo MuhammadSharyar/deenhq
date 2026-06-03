@@ -3,6 +3,7 @@ import { useSettings } from '../hooks/useSettings';
 import { useSeoHead } from '../hooks/useSeoHead';
 import { Search, MapPin, Loader2, AlertTriangle, Info, HelpCircle, Bell } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { schedulePrayerNotifications } from '../utils/scheduleNotifications';
 
 interface NominatimResult {
   place_id: number;
@@ -39,6 +40,7 @@ export function Settings() {
         if (permission === 'granted') {
           setNotificationsEnabled(true);
           localStorage.setItem('deenhq_notifications', 'true');
+          schedulePrayerNotifications();
           new Notification('DeenHQ', { body: 'Notifications enabled successfully!' });
         } else {
           alert('Notification permission denied by your browser.');
@@ -46,6 +48,7 @@ export function Settings() {
       } else if (Notification.permission === 'granted') {
         setNotificationsEnabled(true);
         localStorage.setItem('deenhq_notifications', 'true');
+        schedulePrayerNotifications();
       }
     } else {
       setNotificationsEnabled(false);

@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Layout } from './components/Layout';
 import { Dashboard } from './components/Dashboard';
@@ -12,8 +13,13 @@ import { Names } from './components/Names';
 import { Hadith } from './components/Hadith';
 import { Zakat } from './components/Zakat';
 import { More } from './components/More';
+import { schedulePrayerNotifications } from './utils/scheduleNotifications';
 
 function App() {
+  useEffect(() => {
+    schedulePrayerNotifications();
+  }, []);
+
   return (
     <BrowserRouter>
       <Routes>
