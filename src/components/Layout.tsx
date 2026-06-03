@@ -68,7 +68,7 @@ export function Layout() {
             {isDark ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
           </button>
         </div>
-        <nav className="flex-1 px-4 space-y-2 overflow-y-auto pb-4">
+        <nav className="flex-1 px-4 space-y-2 overflow-y-auto pb-4 custom-scrollbar">
           {desktopNavItems.map((item) => (
             <NavLink
               key={item.to}
