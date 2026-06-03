@@ -13,6 +13,7 @@ import { Names } from './components/Names';
 import { Hadith } from './components/Hadith';
 import { Zakat } from './components/Zakat';
 import { More } from './components/More';
+import { Journal } from './components/Journal';
 import { schedulePrayerNotifications } from './utils/scheduleNotifications';
 
 function App() {
@@ -23,19 +24,20 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route element={<Layout />}>
-          <Route path="/" element={<Dashboard />} />
-          <Route path="/quran" element={<Quran />} />
-          <Route path="/tracker" element={<Tracker />} />
-          <Route path="/settings" element={<Settings />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/faq" element={<FAQ />} />
-          <Route path="/qibla" element={<Qibla />} />
-          <Route path="/duas" element={<Duas />} />
-          <Route path="/names" element={<Names />} />
-          <Route path="/hadith" element={<Hadith />} />
-          <Route path="/zakat" element={<Zakat />} />
-          <Route path="/more" element={<More />} />
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Dashboard />} />
+          <Route path="tracker" element={<Tracker />} />
+          <Route path="quran" element={<Quran />} />
+          <Route path="settings" element={<Settings />} />
+          <Route path="about" element={<About />} />
+          <Route path="faq" element={<FAQ />} />
+          <Route path="qibla" element={<Qibla />} />
+          <Route path="duas" element={<Duas />} />
+          <Route path="names" element={<Names />} />
+          <Route path="hadith" element={<Hadith />} />
+          <Route path="zakat" element={<Zakat />} />
+          <Route path="more" element={<More />} />
+          <Route path="journal" element={<Journal />} />
         </Route>
       </Routes>
     </BrowserRouter>
