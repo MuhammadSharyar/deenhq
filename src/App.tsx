@@ -11,6 +11,9 @@ import { Qibla } from './components/Qibla';
 import { Duas } from './components/Duas';
 import { Names } from './components/Names';
 import { Hadith } from './components/Hadith';
+import { HadithLibrary } from './components/HadithLibrary';
+import { HadithBook } from './components/HadithBook';
+import { HadithReader } from './components/HadithReader';
 import { Zakat } from './components/Zakat';
 import { More } from './components/More';
 import { Journal } from './components/Journal';
@@ -36,6 +39,9 @@ function App() {
           <Route path="duas" element={<Duas />} />
           <Route path="names" element={<Names />} />
           <Route path="hadith" element={<Hadith />} />
+          <Route path="collections" element={<HadithLibrary />} />
+          <Route path="collections/:bookId" element={<HadithBook />} />
+          <Route path="collections/:bookId/:sectionId" element={<HadithReader />} />
           <Route path="zakat" element={<Zakat />} />
           <Route path="more" element={<More />} />
           <Route path="journal" element={<Journal />} />

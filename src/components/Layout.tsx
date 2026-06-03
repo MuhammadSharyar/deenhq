@@ -1,6 +1,6 @@
 import { Outlet, NavLink, useLocation } from 'react-router-dom';
 import { usePWAInstall } from '../hooks/usePWAInstall';
-import { Home, BookOpen, CheckCircle, Settings as SettingsIcon, Sun, Moon, Compass, Quote, Sparkles, ScrollText, Calculator, LayoutGrid, BookHeart, Calendar as CalendarIcon, Download } from 'lucide-react';
+import { Home, BookOpen, CheckCircle, Settings as SettingsIcon, Sun, Moon, Compass, Quote, Sparkles, ScrollText, Calculator, LayoutGrid, BookHeart, Calendar as CalendarIcon, Download, BookMarked } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -40,6 +40,7 @@ export function Layout() {
     { to: '/duas', icon: Quote, label: 'Hisnul Muslim' },
     { to: '/names', icon: Sparkles, label: '99 Names' },
     { to: '/hadith', icon: ScrollText, label: '40 Hadith' },
+    { to: '/collections', icon: BookMarked, label: 'Hadith Library' },
     { to: '/zakat', icon: Calculator, label: 'Zakat Calculator' },
   ];
 

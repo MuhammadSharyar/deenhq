@@ -263,6 +263,28 @@ export function Settings() {
           </div>
         </section>
 
+        {/* Offline Data Management */}
+        <section className="bg-white dark:bg-slate-900 rounded-3xl p-6 md:p-8 shadow-sm border border-slate-100 dark:border-slate-800">
+          <h2 className="text-xl font-bold text-slate-700 dark:text-slate-300 mb-2">Offline Data Management</h2>
+          <p className="text-sm text-slate-500 dark:text-slate-400 mb-6">
+            Hadith collections are downloaded on-demand when you open them. You can proactively download all collections now for full offline access (approx. 60MB).
+          </p>
+
+          <button
+            onClick={async () => {
+              if (window.confirm('This will download approximately 60MB of data. Continue?')) {
+                // Logic to trigger background download could be complex (e.g. iterating over all editions and sections).
+                // For a robust implementation we might dispatch an event to the service worker to pre-fetch them, or just fetch them here.
+                alert('Offline download will be triggered in the background. (Feature coming soon)');
+              }
+            }}
+            className="flex items-center justify-center gap-2 w-full py-3 bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300 rounded-xl font-medium hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors focus:outline-none focus:ring-2 focus:ring-slate-500"
+          >
+            <Download className="w-5 h-5" />
+            Download Complete Hadith Library
+          </button>
+        </section>
+
         {/* Danger Zone */}
         <section className="bg-white dark:bg-slate-900 rounded-3xl p-6 md:p-8 shadow-sm border border-red-100 dark:border-red-900/30">
           <h2 className="text-xl font-bold text-red-600 dark:text-red-400 mb-2">Danger Zone</h2>

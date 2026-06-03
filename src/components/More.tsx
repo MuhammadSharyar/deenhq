@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useSeoHead } from '../hooks/useSeoHead';
-import { Quote, Sparkles, ScrollText, Calculator, Settings, Info, HelpCircle, BookHeart, Calendar as CalendarIcon } from 'lucide-react';
+import { Quote, Sparkles, ScrollText, Calculator, Settings, Info, HelpCircle, BookHeart, Calendar as CalendarIcon, BookMarked } from 'lucide-react';
 
 export function More() {
   useSeoHead({
@@ -14,6 +14,7 @@ export function More() {
     { to: '/duas', icon: Quote, label: 'Hisnul Muslim', desc: 'Daily prayers and supplications' },
     { to: '/names', icon: Sparkles, label: '99 Names', desc: 'Asma ul Husna with meanings' },
     { to: '/hadith', icon: ScrollText, label: '40 Hadith', desc: 'Nawawi collection' },
+    { to: '/collections', icon: BookMarked, label: 'Hadith Library', desc: 'Bukhari, Muslim & more' },
     { to: '/zakat', icon: Calculator, label: 'Zakat Calculator', desc: 'Calculate your obligations' },
   ];
 
