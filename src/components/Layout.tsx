@@ -32,13 +32,13 @@ export function Layout() {
     { to: '/', icon: Home, label: 'Home' },
     { to: '/quran', icon: BookOpen, label: 'Quran' },
     { to: '/tracker', icon: CheckCircle, label: 'Tracker' },
-    { to: '/calendar', icon: CalendarIcon, label: 'Fasting' },
-    { to: '/journal', icon: BookHeart, label: 'Journal' },
+    { to: '/calendar', icon: CalendarIcon, label: 'Fasting Tracker' },
+    { to: '/journal', icon: BookHeart, label: 'Private Journal' },
     { to: '/qibla', icon: Compass, label: 'Qibla' },
     { to: '/duas', icon: Quote, label: 'Hisnul Muslim' },
-    { to: '/names', icon: Sparkles, label: 'Names' },
-    { to: '/hadith', icon: ScrollText, label: 'Hadith' },
-    { to: '/zakat', icon: Calculator, label: 'Zakat' },
+    { to: '/names', icon: Sparkles, label: '99 Names' },
+    { to: '/hadith', icon: ScrollText, label: '40 Hadith' },
+    { to: '/zakat', icon: Calculator, label: 'Zakat Calculator' },
   ];
 
   const mobileNavItems = [
@@ -53,7 +53,7 @@ export function Layout() {
     <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-50 transition-colors duration-200 flex flex-col md:flex-row">
       {/* Desktop Sidebar */}
       <aside className="hidden md:flex flex-col w-64 border-r border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 h-screen sticky top-0 islamic-pattern">
-        <div className="p-6 flex items-center justify-between mb-4 bg-white/50 dark:bg-slate-900/50 backdrop-blur-sm rounded-b-xl mx-2 mt-2 shadow-sm">
+        <div className="p-6 flex items-center justify-between mb-2 bg-white/50 dark:bg-slate-900/50 backdrop-blur-sm rounded-b-xl mx-2 mt-2 shadow-sm">
           <div className="flex items-center gap-3">
             <img src="/favicon.svg" alt="DeenHQ Logo" className="w-8 h-8 drop-shadow-sm" />
             <h1 className="text-2xl font-bold tracking-tight text-primary">DeenHQ</h1>
@@ -66,7 +66,7 @@ export function Layout() {
             {isDark ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
           </button>
         </div>
-        <nav className="flex-1 px-4 space-y-2">
+        <nav className="flex-1 px-4 space-y-2 overflow-y-auto pb-4">
           {desktopNavItems.map((item) => (
             <NavLink
               key={item.to}
@@ -84,7 +84,7 @@ export function Layout() {
             </NavLink>
           ))}
         </nav>
-        <div className="p-4 border-t border-slate-200 dark:border-slate-800 space-y-2">
+        <div className="p-4 border-t border-slate-200 dark:border-slate-800 space-y-2 flex-shrink-0">
           <NavLink to="/settings" className={({ isActive }) => `flex items-center gap-3 px-4 py-2 rounded-lg text-sm transition-colors ${isActive ? 'bg-slate-100 dark:bg-slate-800 text-primary font-medium' : 'text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-800'}`}>
             <SettingsIcon className="w-4 h-4" /> Settings
           </NavLink>
