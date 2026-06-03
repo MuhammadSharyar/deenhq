@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { useSettings } from '../hooks/useSettings';
 import { useSeoHead } from '../hooks/useSeoHead';
+import { usePWAInstall } from '../hooks/usePWAInstall';
 // @ts-expect-error - Search, Loader2, AlertTriangle, Info, HelpCircle are unused
-import { Search, MapPin, Loader2, AlertTriangle, Info, HelpCircle, Bell } from 'lucide-react';
+import { Search, MapPin, Loader2, AlertTriangle, Info, HelpCircle, Bell, Download } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { schedulePrayerNotifications } from '../utils/scheduleNotifications';
 
@@ -16,10 +17,11 @@ interface NominatimResult {
 export function Settings() {
   useSeoHead({
     title: 'Settings | DeenHQ',
-    description: 'Configure your prayer calculation methods and location preferences.',
+    description: 'Configure your DeenHQ preferences including calculation methods, location, and app settings.',
   });
 
   const { madhab, updateMadhab, method, updateMethod, setLocation, triggerAutoLocation, clearAllData } = useSettings();
+  const { isInstallable, installApp } = usePWAInstall();
 
   const [searchQuery, setSearchQuery] = useState('');
   // @ts-expect-error - searchResults and isSearching are unused
@@ -28,34 +30,30 @@ export function Settings() {
   const [isSearching, setIsSearching] = useState(false);
 
   const [notificationsEnabled, setNotificationsEnabled] = useState(
-    ('Notification' in window) && Notification.permission === 'granted' && localStorage.getItem('deenhq_notifications') === 'true'
+    Notification.permission === 'granted'
   );
 
   const toggleNotifications = async () => {
-    if (!('Notification' in window)) {
-      alert('This browser does not support desktop notifications.');
+    if (notificationsEnabled) {
+      // Browsers don't let you programmatically revoke permissions
+      // We can only show an alert to the user
+      alert('To disable notifications, please change the permission settings in your browser.');
       return;
     }
 
-    if (!notificationsEnabled) {
-      if (Notification.permission === 'default' || Notification.permission === 'denied') {
-        const permission = await Notification.requestPermission();
-        if (permission === 'granted') {
-          setNotificationsEnabled(true);
-          localStorage.setItem('deenhq_notifications', 'true');
-          schedulePrayerNotifications();
-          new Notification('DeenHQ', { body: 'Notifications enabled successfully!' });
-        } else {
-          alert('Notification permission denied by your browser.');
-        }
-      } else if (Notification.permission === 'granted') {
+    try {
+      const permission = await Notification.requestPermission();
+      if (permission === 'granted') {
         setNotificationsEnabled(true);
-        localStorage.setItem('deenhq_notifications', 'true');
+        // Reschedule to ensure background tasks are registered
         schedulePrayerNotifications();
+        alert('Prayer notifications enabled successfully!');
+      } else {
+        alert('Notification permission was denied. Please enable it in your browser settings.');
       }
-    } else {
-      setNotificationsEnabled(false);
-      localStorage.setItem('deenhq_notifications', 'false');
+    } catch (error) {
+      console.error('Error requesting notification permission:', error);
+      alert('Failed to enable notifications. Your browser may not support them.');
     }
   };
 
@@ -66,12 +64,11 @@ export function Settings() {
 
     setIsSearching(true);
     try {
-      const response = await fetch(`https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(searchQuery)}&format=json&limit=5`);
-      const data = await response.json();
+      const res = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(searchQuery)}&limit=5`);
+      const data = await res.json();
       setSearchResults(data);
-    } catch (error) {
-      console.error('Search failed', error);
-      alert('Failed to search location. Please check your internet connection.');
+    } catch (err) {
+      console.error("Failed to search location", err);
     } finally {
       setIsSearching(false);
     }
@@ -81,21 +78,44 @@ export function Settings() {
   const handleSelectLocation = (result: NominatimResult) => {
     // simplify display name (take first two parts for clean UI)
     const nameParts = result.display_name.split(', ');
-    const shortName = nameParts.slice(0, 2).join(', ');
-    setLocation(parseFloat(result.lat), parseFloat(result.lon), shortName);
+    const simpleName = nameParts.slice(0, 2).join(', ');
+    
+    setLocation(parseFloat(result.lat), parseFloat(result.lon), simpleName);
     setSearchResults([]);
     setSearchQuery('');
-    alert(`Location set to ${shortName}`);
   };
 
   return (
-    <div className="p-6 md:p-8 lg:p-12 max-w-4xl mx-auto space-y-8">
-      <header className="mb-8">
+    <div className="p-4 md:p-8 lg:p-12 max-w-4xl mx-auto space-y-8 pb-32">
+      <header className="mb-10">
         <h1 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white mb-2">Settings</h1>
-        <p className="text-slate-500 dark:text-slate-400">Configure your location and calculation preferences.</p>
+        <p className="text-slate-500 dark:text-slate-400">Manage your preferences, location, and data.</p>
       </header>
 
       <div className="grid gap-8">
+        {/* App Installation */}
+        {isInstallable && (
+          <section className="bg-gradient-to-br from-emerald-500 to-teal-600 rounded-3xl p-6 md:p-8 shadow-md text-white">
+            <div className="flex items-start justify-between flex-col sm:flex-row gap-6">
+              <div>
+                <h2 className="text-2xl font-bold mb-2 flex items-center gap-3">
+                  <Download className="w-6 h-6" />
+                  Install DeenHQ App
+                </h2>
+                <p className="text-emerald-50 font-medium">
+                  Install DeenHQ on your device for a faster, full-screen offline experience. 
+                  It works directly from your home screen just like a native app.
+                </p>
+              </div>
+              <button 
+                onClick={installApp}
+                className="w-full sm:w-auto px-6 py-3 bg-white text-teal-600 rounded-xl font-bold hover:bg-emerald-50 shadow-sm transition-colors whitespace-nowrap"
+              >
+                Install Now
+              </button>
+            </div>
+          </section>
+        )}
         {/* Location Settings */}
         <section className="bg-white dark:bg-slate-900 rounded-3xl p-6 md:p-8 shadow-sm border border-slate-100 dark:border-slate-800">
           <h2 className="text-xl font-bold text-slate-700 dark:text-slate-300 mb-6">Location Settings</h2>

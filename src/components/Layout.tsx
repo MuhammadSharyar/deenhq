@@ -1,10 +1,12 @@
 import { Outlet, NavLink, useLocation } from 'react-router-dom';
-import { Home, BookOpen, CheckCircle, Settings as SettingsIcon, Sun, Moon, Compass, Quote, Sparkles, ScrollText, Calculator, LayoutGrid, BookHeart, Calendar as CalendarIcon } from 'lucide-react';
+import { usePWAInstall } from '../hooks/usePWAInstall';
+import { Home, BookOpen, CheckCircle, Settings as SettingsIcon, Sun, Moon, Compass, Quote, Sparkles, ScrollText, Calculator, LayoutGrid, BookHeart, Calendar as CalendarIcon, Download } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 export function Layout() {
   const location = useLocation();
+  const { isInstallable, installApp } = usePWAInstall();
   const [isDark, setIsDark] = useState(() => {
     if (typeof window !== 'undefined') {
       const savedTheme = localStorage.getItem('deenhq_theme');
@@ -85,6 +87,14 @@ export function Layout() {
           ))}
         </nav>
         <div className="p-4 border-t border-slate-200 dark:border-slate-800 space-y-2 flex-shrink-0">
+          {isInstallable && (
+            <button 
+              onClick={installApp}
+              className="flex w-full items-center gap-3 px-4 py-3 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 text-white font-medium shadow-md hover:shadow-lg transition-all mb-2"
+            >
+              <Download className="w-5 h-5" /> Install App
+            </button>
+          )}
           <NavLink to="/settings" className={({ isActive }) => `flex items-center gap-3 px-4 py-2 rounded-lg text-sm transition-colors ${isActive ? 'bg-slate-100 dark:bg-slate-800 text-primary font-medium' : 'text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-800'}`}>
             <SettingsIcon className="w-4 h-4" /> Settings
           </NavLink>
