@@ -1,9 +1,31 @@
 import { useState } from 'react';
 import { useTracker } from '../hooks/useTracker';
 import { useSeoHead } from '../hooks/useSeoHead';
-import { Plus, Trash2, RotateCcw, CheckCircle2, Circle } from 'lucide-react';
+import { Plus, Trash2, RotateCcw, CheckCircle2, Circle, ChevronDown } from 'lucide-react';
 import { Heatmap } from './Heatmap';
 import { motion, AnimatePresence } from 'framer-motion';
+
+type SequenceStep = { text: string; arabic: string; count: number };
+
+const adhkarPresets = [
+  { id: 'free', name: 'Free Style', sequence: null },
+  { 
+    id: 'after_salah', 
+    name: 'After Salah', 
+    sequence: [
+      { text: 'Subhanallah', arabic: 'سُبْحَانَ ٱللَّٰهِ', count: 33 },
+      { text: 'Alhamdulillah', arabic: 'ٱلْحَمْدُ لِلَّٰهِ', count: 33 },
+      { text: 'Allahu Akbar', arabic: 'ٱللَّٰهُ أَكْبَرُ', count: 34 }
+    ] as SequenceStep[]
+  },
+  { 
+    id: 'morning_evening', 
+    name: 'Morning / Evening', 
+    sequence: [
+      { text: 'Subhanallah wa bihamdihi', arabic: 'سُبْحَانَ اللَّهِ وَبِحَمْدِهِ', count: 100 }
+    ] as SequenceStep[]
+  }
+];
 
 export function Tracker() {
   useSeoHead({
@@ -13,6 +35,50 @@ export function Tracker() {
 
   const { tasbih, incrementTasbih, resetTasbih, habits, history, toggleHabit, addHabit, deleteHabit } = useTracker();
   const [newHabit, setNewHabit] = useState('');
+
+  // Guided Tasbih State
+  const [selectedPresetId, setSelectedPresetId] = useState('free');
+  const [sequenceIndex, setSequenceIndex] = useState(0);
+  const [sequenceCount, setSequenceCount] = useState(0);
+
+  const selectedPreset = adhkarPresets.find(p => p.id === selectedPresetId) || adhkarPresets[0];
+  const currentStep = selectedPreset.sequence ? selectedPreset.sequence[sequenceIndex] : null;
+
+  const handleTasbihTap = () => {
+    incrementTasbih();
+
+    if (currentStep) {
+      if (sequenceCount + 1 >= currentStep.count) {
+        // Reached end of current step
+        if (sequenceIndex + 1 < selectedPreset.sequence!.length) {
+          if ('vibrate' in navigator) navigator.vibrate([100, 50, 100]); // double vibrate for transition
+          setSequenceIndex(idx => idx + 1);
+          setSequenceCount(0);
+        } else {
+          if ('vibrate' in navigator) navigator.vibrate([200, 100, 200, 100, 200]); // success vibrate
+          setSequenceIndex(0);
+          setSequenceCount(0);
+        }
+      } else {
+        if ('vibrate' in navigator) navigator.vibrate(20); // light tap
+        setSequenceCount(c => c + 1);
+      }
+    } else {
+      if ('vibrate' in navigator) navigator.vibrate(20); // light tap
+    }
+  };
+
+  const handleTasbihReset = () => {
+    resetTasbih();
+    setSequenceIndex(0);
+    setSequenceCount(0);
+  };
+
+  const handlePresetChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedPresetId(e.target.value);
+    setSequenceIndex(0);
+    setSequenceCount(0);
+  };
 
   const handleAddHabit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -34,24 +100,86 @@ export function Tracker() {
 
       <div className="grid gap-8 md:grid-cols-2">
         {/* Tasbih Section */}
-        <section className="bg-white dark:bg-slate-900 rounded-3xl p-8 shadow-sm border border-slate-100 dark:border-slate-800 flex flex-col items-center justify-center min-h-[400px]">
-          <h2 className="text-xl font-bold mb-8 text-slate-700 dark:text-slate-300">Digital Tasbih</h2>
+        <section className="bg-white dark:bg-slate-900 rounded-3xl p-8 shadow-sm border border-slate-100 dark:border-slate-800 flex flex-col items-center justify-center min-h-[400px] relative overflow-hidden">
+          {/* Subtle background decoration */}
+          <div className="absolute -top-24 -right-24 w-64 h-64 bg-primary/5 rounded-full blur-3xl pointer-events-none"></div>
           
-          <button 
-            onClick={incrementTasbih}
-            className="w-48 h-48 rounded-full bg-primary text-white text-6xl font-bold flex items-center justify-center shadow-lg active:scale-95 active:bg-blue-600 transition-all focus:outline-none focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-800 select-none touch-manipulation"
-            aria-label="Increment Tasbih"
-          >
-            {tasbih}
-          </button>
+          <div className="w-full flex justify-between items-center mb-8 z-10">
+            <h2 className="text-xl font-bold text-slate-700 dark:text-slate-300">Digital Tasbih</h2>
+            <div className="relative">
+              <select 
+                value={selectedPresetId}
+                onChange={handlePresetChange}
+                className="appearance-none bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm font-medium text-slate-700 dark:text-slate-300 py-2 pl-4 pr-10 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary cursor-pointer"
+              >
+                {adhkarPresets.map(p => (
+                  <option key={p.id} value={p.id}>{p.name}</option>
+                ))}
+              </select>
+              <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 pointer-events-none" />
+            </div>
+          </div>
           
-          <button 
-            onClick={resetTasbih}
-            className="mt-8 flex items-center gap-2 text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 transition-colors"
-          >
-            <RotateCcw className="w-4 h-4" />
-            Reset Counter
-          </button>
+          <div className="flex-1 flex flex-col items-center justify-center w-full z-10">
+            <div className="h-24 flex flex-col items-center justify-end mb-6 text-center">
+              <AnimatePresence mode="wait">
+                {currentStep ? (
+                  <motion.div 
+                    key={currentStep.text}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    className="flex flex-col items-center"
+                  >
+                    <div className="text-2xl font-bold font-['Amiri_Quran'] text-primary mb-2" dir="rtl">{currentStep.arabic}</div>
+                    <div className="text-sm font-medium text-slate-500 uppercase tracking-widest">{currentStep.text}</div>
+                  </motion.div>
+                ) : (
+                  <motion.div 
+                    key="free"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    className="text-sm font-medium text-slate-400 uppercase tracking-widest"
+                  >
+                    Total Count
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+
+            <button 
+              onClick={handleTasbihTap}
+              className="w-56 h-56 rounded-full bg-gradient-to-br from-primary to-emerald-600 text-white flex flex-col items-center justify-center shadow-xl shadow-primary/20 active:scale-95 active:shadow-md transition-all focus:outline-none focus:ring-4 focus:ring-primary/30 select-none touch-manipulation relative overflow-hidden group"
+              aria-label="Increment Tasbih"
+            >
+              <div className="absolute inset-0 bg-black/10 opacity-0 group-active:opacity-100 transition-opacity"></div>
+              
+              {currentStep ? (
+                <>
+                  <span className="text-6xl font-bold tabular-nums leading-none tracking-tight">{sequenceCount}</span>
+                  <div className="text-emerald-100/80 text-sm font-bold mt-2 uppercase tracking-widest bg-black/10 px-3 py-1 rounded-full">
+                    of {currentStep.count}
+                  </div>
+                </>
+              ) : (
+                <span className="text-6xl font-bold tabular-nums leading-none tracking-tight">{tasbih}</span>
+              )}
+            </button>
+            
+            <div className="mt-8 flex items-center justify-between w-full px-4">
+              <div className="text-xs font-bold text-slate-400 uppercase tracking-wider">
+                Daily Total: <span className="text-primary">{tasbih}</span>
+              </div>
+              <button 
+                onClick={handleTasbihReset}
+                className="flex items-center gap-2 text-xs font-bold text-slate-400 hover:text-slate-700 dark:hover:text-slate-300 transition-colors uppercase tracking-wider"
+              >
+                <RotateCcw className="w-3.5 h-3.5" />
+                Reset
+              </button>
+            </div>
+          </div>
         </section>
 
         {/* Habits Section */}
